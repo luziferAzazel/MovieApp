@@ -30,7 +30,10 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
                             .commit();
                     return true;
                 case R.id.navigation_search:
-                    //mTextMessage.setText(R.string.title_notifications);
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, new GenreFragment())
+                            .commit();
                     return true;
             }
             return false;
