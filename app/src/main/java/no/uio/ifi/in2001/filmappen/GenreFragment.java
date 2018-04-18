@@ -70,7 +70,7 @@ public class GenreFragment extends Fragment {
 
             @Override
             public MovieResponse call() throws Exception {
-                return fetchMovies();
+                return fetchGenreMovies(28);
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -93,10 +93,10 @@ public class GenreFragment extends Fragment {
                 });
     }
 
-    private MovieResponse fetchMovies() throws IOException {
+    private MovieResponse fetchGenreMovies(int genreId) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/discover/movie?api_key=aaba60dc6164849086da1c4ddc25b066&sort_by=popularity.asc")
+                .url("https://api.themoviedb.org/3/discover/movie?api_key=aaba60dc6164849086da1c4ddc25b066&with_genres=" + genreId + "&sort_by=popularity.desc")
                 .build();
 
         Response response = client.newCall(request).execute();
