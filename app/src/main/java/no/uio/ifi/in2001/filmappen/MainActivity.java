@@ -7,9 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements ItemFragment.OnListFragmentInteractionListener {
+import no.uio.ifi.in2001.filmappen.Fragments.GenresFragment;
+import no.uio.ifi.in2001.filmappen.Fragments.MovieFragment;
+import no.uio.ifi.in2001.filmappen.Model.Genre;
+import no.uio.ifi.in2001.filmappen.Model.Movie;
 
-    private TextView mTextMessage;
+public class MainActivity extends AppCompatActivity implements GenresFragment.OnListFragmentInteractionListener, MovieFragment.OnListFragmentInteractionListener {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
                 case R.id.navigation_home:
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.fragment_container, new ItemFragment())
+                            .replace(R.id.fragment_container, new MovieFragment())
                             .commit();
                     return true;
                 case R.id.navigation_dashboard:
@@ -30,10 +33,7 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
                             .commit();
                     return true;
                 case R.id.navigation_search:
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, new GenreFragment())
-                            .commit();
+                    //mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
@@ -54,4 +54,10 @@ public class MainActivity extends AppCompatActivity implements ItemFragment.OnLi
     public void onListFragmentInteraction(Movie movie) {
 
     }
+
+    @Override
+    public void onListFragmentInteraction(Genre movie) {
+
+    }
+
 }

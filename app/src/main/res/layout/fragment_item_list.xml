@@ -7,5 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context="no.uio.ifi.in2001.filmappen.ItemFragment"
+    tools:context="no.uio.ifi.in2001.filmappen.Fragments.MovieFragment"
     tools:listitem="@layout/fragment_item" />

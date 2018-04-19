@@ -1,5 +1,7 @@
-package no.uio.ifi.in2001.filmappen;
+package no.uio.ifi.in2001.filmappen.ListModel;
 import java.util.List;
+
+import no.uio.ifi.in2001.filmappen.Model.Movie;
 
 /**
  * Created by dilek on 23.02.2018.

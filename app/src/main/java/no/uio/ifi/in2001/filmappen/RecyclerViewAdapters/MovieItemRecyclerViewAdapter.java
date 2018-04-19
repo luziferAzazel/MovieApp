@@ -1,4 +1,4 @@
-package no.uio.ifi.in2001.filmappen;
+package no.uio.ifi.in2001.filmappen.RecyclerViewAdapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,41 +10,44 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import no.uio.ifi.in2001.filmappen.ItemFragment.OnListFragmentInteractionListener;
+import no.uio.ifi.in2001.filmappen.Fragments.GenresFragment;
+import no.uio.ifi.in2001.filmappen.Fragments.MovieFragment;
+import no.uio.ifi.in2001.filmappen.Model.Movie;
+import no.uio.ifi.in2001.filmappen.R;
 
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Movie} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link MovieFragment.OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class MovieItemRecyclerViewAdapter extends RecyclerView.Adapter<MovieItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<Movie> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final MovieFragment.OnListFragmentInteractionListener mListener;
     private final Context context;
 
-    protected MyItemRecyclerViewAdapter(List<Movie> items, OnListFragmentInteractionListener listener, Context context) {
+    public MovieItemRecyclerViewAdapter(List<Movie> items, MovieFragment.OnListFragmentInteractionListener listener, Context context) {
         mValues = items;
         mListener = listener;
         this.context = context;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MovieItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
         return new ViewHolder(view);
     }
-
+    //henter fra sporring, position for liste<Movie>
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         Movie currentMovie = mValues.get(position);
-        System.out.println("Movie URL " + currentMovie.poster_path);
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500"+currentMovie.poster_path).into(holder.mPosterView);
-        holder.mContentView.setText(currentMovie.title);
+        System.out.println("Movie URL " + currentMovie.getPoster_path());
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w500"+currentMovie.getPoster_path()).into(holder.mPosterView);
+        holder.mContentView.setText(currentMovie.getTitle());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

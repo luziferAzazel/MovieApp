@@ -1,5 +1,6 @@
-package no.uio.ifi.in2001.filmappen;
+package no.uio.ifi.in2001.filmappen.Fragments;
 
+import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,19 +21,17 @@ import java.util.concurrent.Callable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import no.uio.ifi.in2001.filmappen.dummy.DummyContent;
-import no.uio.ifi.in2001.filmappen.dummy.DummyContent.DummyItem;
+import no.uio.ifi.in2001.filmappen.ListModel.GenreResponse;
+import no.uio.ifi.in2001.filmappen.ListModel.MovieResponse;
+import no.uio.ifi.in2001.filmappen.Model.Movie;
+import no.uio.ifi.in2001.filmappen.R;
+import no.uio.ifi.in2001.filmappen.RecyclerViewAdapters.MovieItemRecyclerViewAdapter;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
-public class ItemFragment extends Fragment {
+
+public class MovieFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -44,13 +43,13 @@ public class ItemFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemFragment() {
+    public MovieFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
+    public static MovieFragment newInstance(int columnCount) {
+        MovieFragment fragment = new MovieFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -66,6 +65,7 @@ public class ItemFragment extends Fragment {
         }
     }
     // from HomeFragment
+    @SuppressLint("CheckResult")
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -90,7 +90,7 @@ public class ItemFragment extends Fragment {
                             } else {
                                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
                             }
-                            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(movieResponse.getList(), mListener, context));
+                            recyclerView.setAdapter(new MovieItemRecyclerViewAdapter(movieResponse.getList(), mListener, context));
                         }
                     }
                 });
@@ -107,13 +107,14 @@ public class ItemFragment extends Fragment {
     }
     private MovieResponse toModel(String movieString) {
         Gson gson = new Gson();
+        System.out.println("Er den tom? movies " + gson.fromJson(movieString, MovieResponse.class).getList());
         return gson.fromJson(movieString, MovieResponse.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        return inflater.inflate(R.layout.fragment_item_list, container, false);
 
         // Set the adapter
 //        if (view instanceof RecyclerView) {
@@ -124,9 +125,8 @@ public class ItemFragment extends Fragment {
 //            } else {
 //                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 //            }
-//            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(fetchMovies(), mListener));
+//            recyclerView.setAdapter(new MovieItemRecyclerViewAdapter(fetchMovies(), mListener));
 //        }
-        return view;
     }
 
     @Override
@@ -158,6 +158,7 @@ public class ItemFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Movie movie);
+        void onListFragmentInteraction(Movie genre);
     }
+
 }
