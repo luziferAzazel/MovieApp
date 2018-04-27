@@ -1,9 +1,8 @@
 package no.uio.ifi.in2001.filmappen.RecyclerViewAdapters;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+
 import android.content.Context;
-import android.support.v4.app.FragmentTransaction;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import no.uio.ifi.in2001.filmappen.Fragments.GenresFragment;
-import no.uio.ifi.in2001.filmappen.Fragments.MovieFragment;
 import no.uio.ifi.in2001.filmappen.Model.Genre;
 import no.uio.ifi.in2001.filmappen.R;
 
@@ -42,17 +42,17 @@ public class GenreItemRecyclerViewAdapter extends RecyclerView.Adapter<GenreItem
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.gItem = genreList.get(position);
         final Genre currentGenre = genreList.get(position);
-        System.out.println("Movie URL " + currentGenre.getName());
-        //Picasso.with(context).load("https://image.tmdb.org/t/p/w500"+currentMovie.poster_path).into(holder.mPosterView);
+        Picasso.with(context).load(context.getResources().getIdentifier("g"+currentGenre.getId(), "drawable", context.getPackageName())).into(holder.mPosterView);
         holder.mContentView.setText(currentGenre.getName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("TEST");
                 if (null != mListener) {
+                    // Her skal du ha med metoden
                     System.out.println("genre " + currentGenre.getName());
                     System.out.println("id " + currentGenre.getId());
+                    //new fragment(currentGenre.getId());
                 }
             }
         });

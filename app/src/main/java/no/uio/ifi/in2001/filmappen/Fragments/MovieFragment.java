@@ -1,10 +1,10 @@
 package no.uio.ifi.in2001.filmappen.Fragments;
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +21,6 @@ import java.util.concurrent.Callable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import no.uio.ifi.in2001.filmappen.ListModel.GenreResponse;
 import no.uio.ifi.in2001.filmappen.ListModel.MovieResponse;
 import no.uio.ifi.in2001.filmappen.Model.Movie;
 import no.uio.ifi.in2001.filmappen.R;

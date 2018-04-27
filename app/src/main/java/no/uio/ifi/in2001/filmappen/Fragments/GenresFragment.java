@@ -1,8 +1,8 @@
 package no.uio.ifi.in2001.filmappen.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,14 +55,14 @@ public class GenresFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
     // from HomeFragment
+    @SuppressLint("CheckResult")
     @Override
-    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         io.reactivex.Observable.fromCallable(new Callable<GenreResponse>() {
 
@@ -74,18 +74,20 @@ public class GenresFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GenreResponse>() {
                     @Override
-                    public void accept(GenreResponse genreResponse) throws Exception {
+                    public void accept(final GenreResponse genreResponse) throws Exception {
                         //String movieFetch = "Movies fetched: " + genreResponse.getList().size();
 
                         if (view instanceof RecyclerView) {
-                            Context context = view.getContext();
-                            RecyclerView recyclerView = (RecyclerView) view;
+                            final Context context = view.getContext();
+                            final RecyclerView recyclerView = (RecyclerView) view;
                             if (mColumnCount <= 1) {
                                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                             } else {
                                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
                             }
+
                             recyclerView.setAdapter(new GenreItemRecyclerViewAdapter(genreResponse.getList(), mListener, context));
+
                         }
                     }
                 });
@@ -101,9 +103,10 @@ public class GenresFragment extends Fragment {
 
         return toModel(response.body().string());
     }
+
     private GenreResponse toModel(String GenreString) {
         Gson gson = new Gson();
-        System.out.println("Er den tom? genre" + gson.fromJson(GenreString, GenreResponse.class).getList());
+       // for testing: System.out.println("Er den tom? genre" + gson.fromJson(GenreString, GenreResponse.class).getList());
         return gson.fromJson(GenreString, GenreResponse.class);
     }
 

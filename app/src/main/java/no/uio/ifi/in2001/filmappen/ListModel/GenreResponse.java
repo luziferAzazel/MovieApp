@@ -12,4 +12,7 @@ public class GenreResponse {
     public List<Genre> getList() {
         return genres;
     }
+
+    public int getSize() { return genres.size(); }
+
 }
